@@ -4,6 +4,7 @@ import TokenSelector, { type Token } from "./TokenSelector";
 import TokenIcon from "./TokenIcon";
 import LimitPanel from "./LimitPanel";
 import DCAPanel from "./DCAPanel";
+import CrossChainPanel from "./CrossChainPanel";
 
 const TOKENS: Token[] = [
   { symbol: "ETH", name: "Ethereum" },
@@ -64,6 +65,8 @@ const SwapCard = () => {
         <LimitPanel tokens={TOKENS} />
       ) : activeTab === "dca" ? (
         <DCAPanel tokens={TOKENS} />
+      ) : activeTab === "cross" ? (
+        <CrossChainPanel tokens={TOKENS} />
       ) : (
         /* Main Swap Card */
         <div className="bg-card rounded-[20px] shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-border/50 p-1.5">
