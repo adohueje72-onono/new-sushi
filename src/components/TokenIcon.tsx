@@ -1,3 +1,5 @@
+import sushiLogo from "@/assets/sushi-logo.png";
+
 interface TokenIconProps {
   symbol: string;
   size?: number;
@@ -5,7 +7,6 @@ interface TokenIconProps {
 
 const TOKEN_STYLES: Record<string, { bg: string; text: string; label: string }> = {
   ETH: { bg: "#627EEA", text: "#fff", label: "Ξ" },
-  SUSHI: { bg: "#D65A8A", text: "#fff", label: "🍣" },
   USDC: { bg: "#2775CA", text: "#fff", label: "$" },
   DAI: { bg: "#F5AC37", text: "#fff", label: "◆" },
   WBTC: { bg: "#F09242", text: "#fff", label: "₿" },
@@ -13,6 +14,17 @@ const TOKEN_STYLES: Record<string, { bg: string; text: string; label: string }> 
 };
 
 const TokenIcon = ({ symbol, size = 28 }: TokenIconProps) => {
+  if (symbol === "SUSHI") {
+    return (
+      <img
+        src={sushiLogo}
+        alt="SUSHI"
+        className="rounded-full shrink-0 object-cover"
+        style={{ width: size, height: size }}
+      />
+    );
+  }
+
   const style = TOKEN_STYLES[symbol] || { bg: "#8B8B8B", text: "#fff", label: "?" };
 
   return (
