@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowUpDown, Settings, Wallet } from "lucide-react";
+import SwapSettingsDialog from "./SwapSettingsDialog";
 import TokenSelector, { type Token } from "./TokenSelector";
 import TokenIcon from "./TokenIcon";
 import LimitPanel from "./LimitPanel";
@@ -21,6 +22,7 @@ const SwapCard = () => {
   const [buyToken, setBuyToken] = useState(TOKENS[1]);
   const [sellAmount, setSellAmount] = useState("");
   const [buyAmount, setBuyAmount] = useState("");
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const tabs = [
     { id: "swap", label: "Swap" },
@@ -59,10 +61,15 @@ const SwapCard = () => {
             {tab.label}
           </button>
         ))}
-        <button className="ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors shrink-0 rounded-lg hover:bg-card">
+        <button
+          className="ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors shrink-0 rounded-lg hover:bg-card"
+          onClick={() => setSettingsOpen(true)}
+        >
           <Settings size={17} strokeWidth={1.8} />
         </button>
       </div>
+
+      <SwapSettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
 
       {/* Conditional Content */}
       {activeTab === "limit" ? (
