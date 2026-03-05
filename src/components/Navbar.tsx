@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, Menu, X, ArrowLeftRight, CreditCard } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import TokenIcon from "./TokenIcon";
 import {
   DropdownMenu,
@@ -11,9 +12,11 @@ import sushiNavLogo from "@/assets/sushi-token.jpg";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const simpleNavItems = [
-    { label: "Explore" },
+    { label: "Explore", path: "/explore" },
     { label: "Positions", hasDropdown: true },
     { label: "Stake" },
     { label: "Validate" },
@@ -23,7 +26,7 @@ const Navbar = () => {
     <nav className="relative px-4 md:px-6 py-3.5 border-b border-border/30">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-7">
-          <div className="flex items-center gap-2 cursor-pointer group">
+          <div className="flex items-center gap-2 cursor-pointer group" onClick={() => navigate("/")}>
             <img src={sushiNavLogo} alt="Sushi" className="w-7 h-7 rounded-full object-cover" />
             <span className="text-lg font-bold text-foreground tracking-tight">Sushi</span>
             <ChevronDown size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />
@@ -39,7 +42,7 @@ const Navbar = () => {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-44 p-1">
-                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
+                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2" onClick={() => navigate("/")}>
                   <ArrowLeftRight size={15} />
                   <span className="text-sm font-medium">Swap</span>
                 </DropdownMenuItem>
@@ -53,7 +56,12 @@ const Navbar = () => {
             {simpleNavItems.map((item) => (
               <button
                 key={item.label}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13px] font-medium text-foreground/80 hover:text-foreground hover:bg-muted/60 transition-all"
+                onClick={() => item.path && navigate(item.path)}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all ${
+                  item.path && location.pathname === item.path
+                    ? "text-foreground bg-muted/60"
+                    : "text-foreground/80 hover:text-foreground hover:bg-muted/60"
+                }`}
               >
                 {item.label}
                 {item.hasDropdown && (
