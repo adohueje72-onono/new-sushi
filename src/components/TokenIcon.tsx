@@ -1,5 +1,6 @@
 import sushiLogo from "@/assets/sushi-token.jpg";
 import ethLogo from "@/assets/eth-logo.png";
+import arbLogo from "@/assets/arb-logo.jpeg";
 
 interface TokenIconProps {
   symbol: string;
@@ -9,6 +10,7 @@ interface TokenIconProps {
 const IMAGE_TOKENS: Record<string, { src: string; alt: string; bg?: string }> = {
   SUSHI: { src: sushiLogo, alt: "SUSHI" },
   ETH: { src: ethLogo, alt: "ETH" },
+  ARB: { src: arbLogo, alt: "ARB" },
 };
 
 const TOKEN_STYLES: Record<string, { bg: string; text: string; label: string }> = {
