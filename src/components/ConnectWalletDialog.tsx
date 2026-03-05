@@ -16,6 +16,7 @@ import cosmostationLogo from "@/assets/cosmostation-wallet.jpeg";
 import safepalLogo from "@/assets/safepal-wallet.jpeg";
 import coinbaseLogo from "@/assets/coinbase-wallet.jpeg";
 import solflareLogo from "@/assets/solflare-wallet.jpeg";
+import backpackLogo from "@/assets/backpack-wallet.jpeg";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
@@ -101,12 +102,7 @@ const SolflareIcon = () => (
 );
 
 const BackpackIcon = () => (
-  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #E33E3F, #C62828)" }}>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path d="M20 8H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V10a2 2 0 00-2-2z" fill="white"/>
-      <path d="M8 8V6a4 4 0 118 0v2" stroke="white" strokeWidth="2" fill="none"/>
-    </svg>
-  </div>
+  <img src={backpackLogo} alt="Backpack" className="w-7 h-7 rounded-lg" />
 );
 
 const FreighterIcon = () => (
