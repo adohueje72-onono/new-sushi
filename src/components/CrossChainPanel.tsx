@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { ArrowUpDown, Wallet, ChevronRight } from "lucide-react";
-import TokenSelector, { type Token } from "./TokenSelector";
+import TokenIcon from "./TokenIcon";
+import { type Token } from "./TokenSelector";
 
 interface CrossChainPanelProps {
   tokens: Token[];
 }
 
 const CrossChainPanel = ({ tokens }: CrossChainPanelProps) => {
-  const [sellToken, setSellToken] = useState(tokens[0]);
-  const [buyToken] = useState({ symbol: "ARB", name: "Arbitrum One" } as Token);
+  const [sellToken] = useState(tokens[0]);
+  const [buyToken] = useState<Token>({ symbol: "ARB", name: "Arbitrum One" });
   const [sellAmount, setSellAmount] = useState("");
   const [buyAmount, setBuyAmount] = useState("");
 
@@ -26,8 +27,13 @@ const CrossChainPanel = ({ tokens }: CrossChainPanelProps) => {
             onChange={(e) => setSellAmount(e.target.value)}
             className="bg-transparent text-[28px] sm:text-[32px] font-normal text-foreground outline-none w-full min-w-0 placeholder:text-muted-foreground/40 leading-tight"
           />
-          <button className="flex items-center gap-2 bg-card border border-border/60 rounded-full pl-2 pr-2.5 py-1.5 hover:bg-muted/60 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)] shrink-0">
-            <TokenSelector token={sellToken} onSelect={setSellToken} tokens={tokens} />
+          <button className="flex items-center gap-2 bg-card border border-border/60 rounded-full pl-1.5 pr-2.5 py-1.5 hover:bg-muted/60 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)] shrink-0">
+            <div className="relative">
+              <TokenIcon symbol={sellToken.symbol} size={28} />
+              <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-card flex items-center justify-center">
+                <TokenIcon symbol="ETH" size={8} />
+              </div>
+            </div>
             <div className="flex flex-col items-start leading-none">
               <span className="text-sm font-semibold text-foreground">{sellToken.symbol}</span>
               <span className="text-[10px] text-muted-foreground">Ethereum</span>
@@ -63,8 +69,13 @@ const CrossChainPanel = ({ tokens }: CrossChainPanelProps) => {
             onChange={(e) => setBuyAmount(e.target.value)}
             className="bg-transparent text-[28px] sm:text-[32px] font-normal text-foreground outline-none w-full min-w-0 placeholder:text-muted-foreground/40 leading-tight"
           />
-          <button className="flex items-center gap-2 bg-card border border-border/60 rounded-full pl-2 pr-2.5 py-1.5 hover:bg-muted/60 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)] shrink-0">
-            <TokenSelector token={buyToken} onSelect={() => {}} tokens={tokens} />
+          <button className="flex items-center gap-2 bg-card border border-border/60 rounded-full pl-1.5 pr-2.5 py-1.5 hover:bg-muted/60 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)] shrink-0">
+            <div className="relative">
+              <TokenIcon symbol={buyToken.symbol} size={28} />
+              <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-accent border-2 border-card flex items-center justify-center">
+                <span className="text-[6px] font-bold text-accent-foreground">A</span>
+              </div>
+            </div>
             <div className="flex flex-col items-start leading-none">
               <span className="text-sm font-semibold text-foreground">{buyToken.symbol}</span>
               <span className="text-[10px] text-muted-foreground">{buyToken.name}</span>
