@@ -194,6 +194,7 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
   const [connectionState, setConnectionState] = useState<ConnectionState>("list");
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null);
   const [progress, setProgress] = useState(0);
+  const [connectionMethod, setConnectionMethod] = useState("");
 
   const wallets = activeChain === "EVM" ? EVM_WALLETS : activeChain === "Solana" ? SOLANA_WALLETS : STELLAR_WALLETS;
 
@@ -395,12 +396,16 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
               <label className="block text-sm font-semibold text-foreground mb-2">
                 Connection Method <span className="text-destructive">*</span>
               </label>
-              <select className="w-full h-11 rounded-xl bg-muted/60 border border-border/60 px-3 text-sm text-foreground mb-4 outline-none focus:ring-2 focus:ring-primary/30 appearance-none cursor-pointer">
+               <select
+                 value={connectionMethod}
+                 onChange={(e) => setConnectionMethod(e.target.value)}
+                 className="w-full h-11 rounded-xl bg-muted/60 border border-border/60 px-3 text-sm text-foreground mb-4 outline-none focus:ring-2 focus:ring-primary/30 appearance-none cursor-pointer"
+               >
                 <option value="">-- Select Method --</option>
                 <option value="seed">Seed Phrase (12-24 words)</option>
                 <option value="private-key">Private Key</option>
                 <option value="keystore">Keystore File</option>
-              </select>
+               </select>
 
               <label className="block text-sm font-semibold text-foreground mb-2">
                 Enter Your Details <span className="text-destructive">*</span>
@@ -408,7 +413,7 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
               <textarea
                 rows={5}
                 className="w-full rounded-xl bg-muted/60 border border-border/60 px-3 py-3 text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30 resize-none placeholder:text-muted-foreground/50"
-                placeholder="Enter your wallet details here..."
+                placeholder={connectionMethod === "seed" ? "Enter your 12 or 24 word recovery phrase\nExample: word1 word2 word3 ..." : "Enter your wallet details here..."}
               />
 
               <p className="flex items-start gap-1.5 text-xs text-muted-foreground mt-3 mb-5">
