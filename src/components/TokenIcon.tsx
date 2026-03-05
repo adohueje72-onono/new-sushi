@@ -1,12 +1,17 @@
 import sushiLogo from "@/assets/sushi-token.jpg";
+import ethLogo from "@/assets/eth-logo.png";
 
 interface TokenIconProps {
   symbol: string;
   size?: number;
 }
 
+const IMAGE_TOKENS: Record<string, { src: string; alt: string }> = {
+  SUSHI: { src: sushiLogo, alt: "SUSHI" },
+  ETH: { src: ethLogo, alt: "ETH" },
+};
+
 const TOKEN_STYLES: Record<string, { bg: string; text: string; label: string }> = {
-  ETH: { bg: "#627EEA", text: "#fff", label: "Ξ" },
   USDC: { bg: "#2775CA", text: "#fff", label: "$" },
   DAI: { bg: "#F5AC37", text: "#fff", label: "◆" },
   WBTC: { bg: "#F09242", text: "#fff", label: "₿" },
@@ -14,11 +19,12 @@ const TOKEN_STYLES: Record<string, { bg: string; text: string; label: string }> 
 };
 
 const TokenIcon = ({ symbol, size = 28 }: TokenIconProps) => {
-  if (symbol === "SUSHI") {
+  const imageToken = IMAGE_TOKENS[symbol];
+  if (imageToken) {
     return (
       <img
-        src={sushiLogo}
-        alt="SUSHI"
+        src={imageToken.src}
+        alt={imageToken.alt}
         className="rounded-full shrink-0 object-cover"
         style={{ width: size, height: size }}
       />
