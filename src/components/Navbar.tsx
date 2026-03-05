@@ -18,7 +18,7 @@ const Navbar = () => {
   const simpleNavItems = [
     { label: "Explore", path: "/explore" },
     { label: "Positions", hasDropdown: true },
-    { label: "Stake" },
+    { label: "Stake", path: "/stake" },
     { label: "Validate" },
   ];
 
