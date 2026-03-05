@@ -1,5 +1,5 @@
 import sushiLogo from "@/assets/sushi-token.jpg";
-import ethLogo from "@/assets/eth-logo.jpg";
+import ethLogo from "@/assets/eth-logo.png";
 
 interface TokenIconProps {
   symbol: string;
