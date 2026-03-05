@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import TokenIcon from "./TokenIcon";
-import sushiLogo from "@/assets/sushi-token.jpg";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
