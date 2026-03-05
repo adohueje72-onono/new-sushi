@@ -45,9 +45,9 @@ const Navbar = () => {
                   <span className="text-sm font-medium">Swap</span>
                   <span className="text-xs text-muted-foreground">The easiest way to trade</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
-                  <CreditCard size={15} />
+                <DropdownMenuItem className="flex flex-col items-start cursor-pointer rounded-lg px-2.5 py-2">
                   <span className="text-sm font-medium">Buy Crypto</span>
+                  <span className="text-xs text-muted-foreground">Onramp with fiat</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
