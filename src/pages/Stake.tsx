@@ -49,7 +49,7 @@ const Stake = () => {
             </div>
             <div>
               <span className="font-semibold text-foreground">XSUSHI</span>{" "}
-              <a href="#" className="text-primary hover:underline inline-flex items-center gap-1">
+              <a href="https://etherscan.io/token/0x8798249c2e607446efb7ad49ec89dd1865ff4272" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline inline-flex items-center gap-1">
                 0×8798...4272 <ExternalLink size={12} />
               </a>
             </div>
