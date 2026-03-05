@@ -61,11 +61,13 @@ const Navbar = () => {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-44 p-1">
-                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
-                  <span className="text-sm font-medium">Manage liquidity pool positions</span>
+                <DropdownMenuItem className="flex flex-col items-start cursor-pointer rounded-lg px-2.5 py-2">
+                  <span className="text-sm font-medium">Manage</span>
+                  <span className="text-xs text-muted-foreground">Manage liquidity pool positions</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
-                  <span className="text-sm font-medium">Claim your fees and rewards</span>
+                <DropdownMenuItem className="flex flex-col items-start cursor-pointer rounded-lg px-2.5 py-2">
+                  <span className="text-sm font-medium">Claim</span>
+                  <span className="text-xs text-muted-foreground">Claim your fees and rewards</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -116,11 +118,13 @@ const Navbar = () => {
           </button>
            <div className="border-t border-border/50 my-1" />
           <p className="text-[11px] font-medium text-muted-foreground px-2 pt-1 pb-1">Positions</p>
-          <button className="flex items-center w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
-            Manage liquidity pool positions
+          <button className="flex flex-col items-start w-full text-left text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
+            <span className="text-sm font-medium">Manage</span>
+            <span className="text-xs text-muted-foreground">Manage liquidity pool positions</span>
           </button>
-          <button className="flex items-center w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
-            Claim your fees and rewards
+          <button className="flex flex-col items-start w-full text-left text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
+            <span className="text-sm font-medium">Claim</span>
+            <span className="text-xs text-muted-foreground">Claim your fees and rewards</span>
           </button>
           <div className="border-t border-border/50 my-1" />
           {simpleNavItems.map((item) => (
