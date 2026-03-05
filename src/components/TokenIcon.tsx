@@ -1,4 +1,4 @@
-import sushiLogo from "@/assets/sushi-logo.png";
+import sushiLogo from "@/assets/sushi-token.jpg";
 
 interface TokenIconProps {
   symbol: string;
