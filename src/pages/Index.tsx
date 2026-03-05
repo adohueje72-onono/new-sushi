@@ -5,7 +5,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="flex items-start justify-center pt-20 px-4">
+      <main className="flex items-start justify-center pt-10 sm:pt-20 px-3 sm:px-4">
         <SwapCard />
       </main>
     </div>

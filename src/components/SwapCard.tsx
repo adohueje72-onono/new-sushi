@@ -34,12 +34,12 @@ const SwapCard = () => {
   return (
     <div className="w-full max-w-[480px] mx-auto">
       {/* Tabs */}
-      <div className="flex items-center gap-1 mb-4 px-1">
+      <div className="flex items-center gap-0.5 sm:gap-1 mb-4 px-1 overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
               activeTab === tab.id
                 ? "bg-card shadow-sm text-foreground"
                 : "text-muted-foreground hover:text-foreground"
@@ -49,7 +49,7 @@ const SwapCard = () => {
             {tab.label}
           </button>
         ))}
-        <button className="ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors">
+        <button className="ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors shrink-0">
           <Settings size={18} />
         </button>
       </div>
@@ -65,7 +65,7 @@ const SwapCard = () => {
               placeholder="0.0"
               value={sellAmount}
               onChange={(e) => setSellAmount(e.target.value)}
-              className="bg-transparent text-3xl font-light text-foreground outline-none w-full placeholder:text-muted-foreground/50"
+              className="bg-transparent text-2xl sm:text-3xl font-light text-foreground outline-none w-full min-w-0 placeholder:text-muted-foreground/50"
             />
             <TokenSelector token={sellToken} onSelect={setSellToken} tokens={TOKENS} />
           </div>
@@ -97,7 +97,7 @@ const SwapCard = () => {
               placeholder="0.0"
               value={buyAmount}
               onChange={(e) => setBuyAmount(e.target.value)}
-              className="bg-transparent text-3xl font-light text-foreground outline-none w-full placeholder:text-muted-foreground/50"
+              className="bg-transparent text-2xl sm:text-3xl font-light text-foreground outline-none w-full min-w-0 placeholder:text-muted-foreground/50"
             />
             <TokenSelector token={buyToken} onSelect={setBuyToken} tokens={TOKENS} />
           </div>
