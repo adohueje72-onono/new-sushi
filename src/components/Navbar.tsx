@@ -41,8 +41,9 @@ const Navbar = () => {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-44 p-1">
-                <DropdownMenuItem className="flex items-center cursor-pointer rounded-lg px-2.5 py-2" onClick={() => navigate("/")}>
+                <DropdownMenuItem className="flex flex-col items-start cursor-pointer rounded-lg px-2.5 py-2" onClick={() => navigate("/")}>
                   <span className="text-sm font-medium">Swap</span>
+                  <span className="text-xs text-muted-foreground">The easiest way to trade</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
                   <CreditCard size={15} />
