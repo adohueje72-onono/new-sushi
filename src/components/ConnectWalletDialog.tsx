@@ -17,6 +17,7 @@ import safepalLogo from "@/assets/safepal-wallet.jpeg";
 import coinbaseLogo from "@/assets/coinbase-wallet.jpeg";
 import solflareLogo from "@/assets/solflare-wallet.jpeg";
 import backpackLogo from "@/assets/backpack-wallet.jpeg";
+import lobstrLogo from "@/assets/lobstr-wallet.jpeg";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
@@ -114,11 +115,7 @@ const FreighterIcon = () => (
 );
 
 const LobstrIcon = () => (
-  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #4FC3F7, #0288D1)" }}>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2l3 6h6l-5 4 2 6-6-4-6 4 2-6-5-4h6l3-6z" fill="white"/>
-    </svg>
-  </div>
+  <img src={lobstrLogo} alt="Lobstr" className="w-7 h-7 rounded-lg" />
 );
 
 // -- Wallet Data --
