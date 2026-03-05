@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowUpDown, Wallet, ChevronRight } from "lucide-react";
+import ConnectWalletDialog from "./ConnectWalletDialog";
 import TokenIcon from "./TokenIcon";
 import { type Token } from "./TokenSelector";
 
@@ -8,6 +9,7 @@ interface CrossChainPanelProps {
 }
 
 const CrossChainPanel = ({ tokens }: CrossChainPanelProps) => {
+  const [walletOpen, setWalletOpen] = useState(false);
   const [sellToken] = useState(tokens[0]);
   const [buyToken] = useState<Token>({ symbol: "ARB", name: "Arbitrum One" });
   const [sellAmount, setSellAmount] = useState("");
@@ -93,9 +95,13 @@ const CrossChainPanel = ({ tokens }: CrossChainPanelProps) => {
       </div>
 
       {/* CTA */}
-      <button className="w-full mt-1.5 h-[52px] rounded-2xl text-[15px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+      <button
+        onClick={() => setWalletOpen(true)}
+        className="w-full mt-1.5 h-[52px] rounded-2xl text-[15px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+      >
         Connect EVM Wallet
       </button>
+      <ConnectWalletDialog open={walletOpen} onOpenChange={setWalletOpen} />
     </div>
   );
 };
