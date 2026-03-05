@@ -9,6 +9,7 @@ import { Globe, Smartphone, ArrowLeft, AlertCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import rabbyLogo from "@/assets/rabby-wallet.jpeg";
 import phantomLogo from "@/assets/phantom-wallet.jpeg";
+import keplrLogo from "@/assets/keplr-wallet.jpeg";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
@@ -46,9 +47,7 @@ const PhantomIcon = () => (
 );
 
 const KeplrIcon = () => (
-  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #3B82F6, #1D4ED8)" }}>
-    <span className="text-white font-bold text-xs">K</span>
-  </div>
+  <img src={keplrLogo} alt="Keplr" className="w-7 h-7 rounded-lg" />
 );
 
 const ZerionIcon = () => (
