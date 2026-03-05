@@ -1,23 +1,27 @@
 import { useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, ArrowLeftRight, CreditCard } from "lucide-react";
 import TokenIcon from "./TokenIcon";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import sushiNavLogo from "@/assets/sushi-token.jpg";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navItems = [
-    { label: "Trade", hasDropdown: true },
-    { label: "Explore", hasDropdown: false },
+  const simpleNavItems = [
+    { label: "Explore" },
     { label: "Positions", hasDropdown: true },
-    { label: "Stake", hasDropdown: false },
-    { label: "Validate", hasDropdown: false },
+    { label: "Stake" },
+    { label: "Validate" },
   ];
 
   return (
     <nav className="relative px-4 md:px-6 py-3.5 border-b border-border/30">
       <div className="flex items-center justify-between">
-        {/* Logo + Nav */}
         <div className="flex items-center gap-7">
           <div className="flex items-center gap-2 cursor-pointer group">
             <img src={sushiNavLogo} alt="Sushi" className="w-7 h-7 rounded-full object-cover" />
@@ -26,7 +30,27 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
+            {/* Trade Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13px] font-medium text-foreground/80 hover:text-foreground hover:bg-muted/60 transition-all">
+                  Trade
+                  <ChevronDown size={13} className="text-muted-foreground" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-44 p-1">
+                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
+                  <ArrowLeftRight size={15} />
+                  <span className="text-sm font-medium">Swap</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
+                  <CreditCard size={15} />
+                  <span className="text-sm font-medium">Buy Crypto</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {simpleNavItems.map((item) => (
               <button
                 key={item.label}
                 className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13px] font-medium text-foreground/80 hover:text-foreground hover:bg-muted/60 transition-all"
@@ -61,7 +85,15 @@ const Navbar = () => {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-card border-b border-border shadow-lg z-50 px-4 py-2">
-          {navItems.map((item) => (
+          <p className="text-[11px] font-medium text-muted-foreground px-2 pt-1 pb-1">Trade</p>
+          <button className="flex items-center gap-2 w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
+            <ArrowLeftRight size={15} /> Swap
+          </button>
+          <button className="flex items-center gap-2 w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
+            <CreditCard size={15} /> Buy Crypto
+          </button>
+          <div className="border-t border-border/50 my-1" />
+          {simpleNavItems.map((item) => (
             <button
               key={item.label}
               className="flex items-center gap-1 w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2.5 px-2 rounded-lg"
