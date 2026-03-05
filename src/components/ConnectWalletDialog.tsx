@@ -12,6 +12,7 @@ import phantomLogo from "@/assets/phantom-wallet.jpeg";
 import keplrLogo from "@/assets/keplr-wallet.jpeg";
 import zerionLogo from "@/assets/zerion-wallet.jpeg";
 import leapLogo from "@/assets/leap-wallet.jpeg";
+import cosmostationLogo from "@/assets/cosmostation-wallet.jpeg";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
@@ -61,12 +62,7 @@ const LeapIcon = () => (
 );
 
 const CosmostationIcon = () => (
-  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #9F5AE5, #7B3FE4)" }}>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="4" fill="white"/>
-      <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="white" strokeWidth="1.5" fill="none"/>
-    </svg>
-  </div>
+  <img src={cosmostationLogo} alt="Cosmostation Wallet" className="w-7 h-7 rounded-lg" />
 );
 
 const SafePalIcon = () => (
