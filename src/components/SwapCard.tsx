@@ -3,6 +3,7 @@ import { ArrowUpDown, Settings, Wallet } from "lucide-react";
 import TokenSelector, { type Token } from "./TokenSelector";
 import TokenIcon from "./TokenIcon";
 import LimitPanel from "./LimitPanel";
+import DCAPanel from "./DCAPanel";
 
 const TOKENS: Token[] = [
   { symbol: "ETH", name: "Ethereum" },
@@ -61,6 +62,8 @@ const SwapCard = () => {
       {/* Conditional Content */}
       {activeTab === "limit" ? (
         <LimitPanel tokens={TOKENS} />
+      ) : activeTab === "dca" ? (
+        <DCAPanel tokens={TOKENS} />
       ) : (
         /* Main Swap Card */
         <div className="bg-card rounded-[20px] shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-border/50 p-1.5">
