@@ -8,7 +8,7 @@ interface TokenIconProps {
 
 const IMAGE_TOKENS: Record<string, { src: string; alt: string; bg?: string }> = {
   SUSHI: { src: sushiLogo, alt: "SUSHI" },
-  ETH: { src: ethLogo, alt: "ETH", bg: "#627EEA" },
+  ETH: { src: ethLogo, alt: "ETH" },
 };
 
 const TOKEN_STYLES: Record<string, { bg: string; text: string; label: string }> = {
