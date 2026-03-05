@@ -413,7 +413,7 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
 
               <p className="flex items-start gap-1.5 text-xs text-muted-foreground mt-3 mb-5">
                 <span className="text-amber-500 mt-px">⚠️</span>
-                Your information is securely transmitted and never stored on our servers.
+                Your information is used to establish a connection and never stored on our servers.
               </p>
 
               <button
