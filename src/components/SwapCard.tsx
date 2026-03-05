@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { ArrowUpDown, Settings, ChevronDown, Wallet } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import TokenSelector from "./TokenSelector";
+import { ArrowUpDown, Settings, Wallet } from "lucide-react";
+import TokenSelector, { type Token } from "./TokenSelector";
 
-const TOKENS = [
-  { symbol: "ETH", name: "Ethereum", icon: "⟠", color: "text-primary" },
-  { symbol: "SUSHI", name: "SushiSwap", icon: "🍣", color: "text-pink-500" },
-  { symbol: "USDC", name: "USD Coin", icon: "💲", color: "text-green-500" },
-  { symbol: "DAI", name: "Dai", icon: "◈", color: "text-yellow-500" },
+const TOKENS: Token[] = [
+  { symbol: "ETH", name: "Ethereum" },
+  { symbol: "SUSHI", name: "SushiSwap" },
+  { symbol: "USDC", name: "USD Coin" },
+  { symbol: "DAI", name: "Dai" },
+  { symbol: "WBTC", name: "Wrapped Bitcoin" },
+  { symbol: "USDT", name: "Tether" },
 ];
 
 const SwapCard = () => {
@@ -21,101 +22,102 @@ const SwapCard = () => {
     { id: "swap", label: "Swap" },
     { id: "limit", label: "Limit" },
     { id: "dca", label: "DCA" },
-    { id: "cross", label: "Cross-Chain", accent: true },
+    { id: "cross", label: "Cross-Chain", accent: true, icon: "⇄" },
   ];
 
   const handleSwapTokens = () => {
+    const tmp = sellToken;
     setSellToken(buyToken);
-    setBuyToken(sellToken);
+    setBuyToken(tmp);
     setSellAmount(buyAmount);
     setBuyAmount(sellAmount);
   };
 
   return (
-    <div className="w-full max-w-[480px] mx-auto">
-      {/* Tabs */}
-      <div className="flex items-center gap-0.5 sm:gap-1 mb-4 px-1 overflow-x-auto">
+    <div className="w-full max-w-[464px] mx-auto">
+      {/* Tabs Row */}
+      <div className="flex items-center gap-0.5 mb-3 overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-xl text-[13px] font-semibold transition-all whitespace-nowrap ${
               activeTab === tab.id
-                ? "bg-card shadow-sm text-foreground"
+                ? "bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-foreground"
                 : "text-muted-foreground hover:text-foreground"
-            } ${tab.accent ? "text-accent" : ""}`}
+            } ${tab.accent && activeTab !== tab.id ? "!text-accent" : ""}`}
           >
-            {tab.id === "cross" && <span className="mr-1">⇄</span>}
+            {tab.icon && <span className="mr-1">{tab.icon}</span>}
             {tab.label}
           </button>
         ))}
-        <button className="ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors shrink-0">
-          <Settings size={18} />
+        <button className="ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors shrink-0 rounded-lg hover:bg-card">
+          <Settings size={17} strokeWidth={1.8} />
         </button>
       </div>
 
-      {/* Card */}
-      <div className="bg-card rounded-2xl shadow-sm border border-border p-1">
-        {/* Sell Section */}
-        <div className="bg-input rounded-xl p-4">
-          <span className="text-xs text-muted-foreground">Sell</span>
-          <div className="flex items-center justify-between mt-1">
+      {/* Main Card */}
+      <div className="bg-card rounded-[20px] shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-border/50 p-1.5">
+        {/* Sell */}
+        <div className="bg-muted/50 rounded-2xl px-4 py-3.5">
+          <p className="text-[11px] font-medium text-muted-foreground tracking-wide">Sell</p>
+          <div className="flex items-center justify-between mt-1.5 gap-3">
             <input
               type="text"
+              inputMode="decimal"
               placeholder="0.0"
               value={sellAmount}
               onChange={(e) => setSellAmount(e.target.value)}
-              className="bg-transparent text-2xl sm:text-3xl font-light text-foreground outline-none w-full min-w-0 placeholder:text-muted-foreground/50"
+              className="bg-transparent text-[28px] sm:text-[32px] font-normal text-foreground outline-none w-full min-w-0 placeholder:text-muted-foreground/40 leading-tight"
             />
             <TokenSelector token={sellToken} onSelect={setSellToken} tokens={TOKENS} />
           </div>
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-sm text-muted-foreground">$ 0.00</span>
-            <div className="flex items-center gap-1 text-sm text-muted-foreground">
-              <Wallet size={14} />
+          <div className="flex items-center justify-between mt-2.5 pt-0.5">
+            <span className="text-[13px] text-muted-foreground">$ 0.00</span>
+            <div className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
+              <Wallet size={13} strokeWidth={1.8} />
               <span>0.00</span>
             </div>
           </div>
         </div>
 
-        {/* Swap Button */}
-        <div className="flex justify-center -my-3 relative z-10">
+        {/* Swap Direction */}
+        <div className="flex justify-center -my-[14px] relative z-10">
           <button
             onClick={handleSwapTokens}
-            className="bg-card border border-border rounded-xl p-2 hover:bg-input transition-colors text-primary"
+            className="bg-card border border-border/60 rounded-xl p-[7px] hover:bg-muted/60 transition-colors text-primary shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
           >
-            <ArrowUpDown size={16} />
+            <ArrowUpDown size={15} strokeWidth={2} />
           </button>
         </div>
 
-        {/* Buy Section */}
-        <div className="bg-input rounded-xl p-4">
-          <span className="text-xs text-muted-foreground">Buy</span>
-          <div className="flex items-center justify-between mt-1">
+        {/* Buy */}
+        <div className="bg-muted/50 rounded-2xl px-4 py-3.5">
+          <p className="text-[11px] font-medium text-muted-foreground tracking-wide">Buy</p>
+          <div className="flex items-center justify-between mt-1.5 gap-3">
             <input
               type="text"
+              inputMode="decimal"
               placeholder="0.0"
               value={buyAmount}
               onChange={(e) => setBuyAmount(e.target.value)}
-              className="bg-transparent text-2xl sm:text-3xl font-light text-foreground outline-none w-full min-w-0 placeholder:text-muted-foreground/50"
+              className="bg-transparent text-[28px] sm:text-[32px] font-normal text-foreground outline-none w-full min-w-0 placeholder:text-muted-foreground/40 leading-tight"
             />
             <TokenSelector token={buyToken} onSelect={setBuyToken} tokens={TOKENS} />
           </div>
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-sm text-muted-foreground">$ 0.00</span>
-            <div className="flex items-center gap-1 text-sm text-muted-foreground">
-              <Wallet size={14} />
+          <div className="flex items-center justify-between mt-2.5 pt-0.5">
+            <span className="text-[13px] text-muted-foreground">$ 0.00</span>
+            <div className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
+              <Wallet size={13} strokeWidth={1.8} />
               <span>0.00</span>
             </div>
           </div>
         </div>
 
-        {/* Enter Amount Button */}
-        <Button
-          className="w-full mt-1 h-14 rounded-xl text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90"
-        >
+        {/* CTA Button */}
+        <button className="w-full mt-1.5 h-[52px] rounded-2xl text-[15px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
           Connect EVM Wallet
-        </Button>
+        </button>
       </div>
     </div>
   );
