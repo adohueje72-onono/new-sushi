@@ -8,6 +8,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Globe, Smartphone, ArrowLeft, AlertCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import rabbyLogo from "@/assets/rabby-wallet.jpeg";
+import phantomLogo from "@/assets/phantom-wallet.jpeg";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
@@ -41,13 +42,7 @@ const RabbyIcon = () => (
 );
 
 const PhantomIcon = () => (
-  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #AB9FF2, #7B61FF)" }}>
-    <svg width="16" height="16" viewBox="0 0 128 128" fill="none">
-      <path d="M108.4 57.1C106.7 39.8 96.3 25.2 80.8 18.5c-3.9-1.7-8-2.9-12.2-3.6C64.4 14 60 14.3 55.8 15.2c-8.5 1.9-16.1 6.4-21.9 12.8C28 34.4 24.3 42.6 23.3 51.3c-1 8.7.5 17.5 4.5 25.2 2 3.9 4.7 7.4 7.8 10.5.8.8 1.9.8 2.7.1.8-.8.8-1.9.1-2.7-2.8-2.8-5.2-6-7-9.5-3.6-7-5-14.8-4-22.7.9-7.8 4.3-15.2 9.6-21 5.2-5.8 12.1-9.9 19.8-11.6 3.8-.8 7.7-1.1 11.5-.3 3.8.5 7.5 1.7 11 3.3 14 6.1 23.4 19.2 24.9 34.6.5 5.2.1 10.5-1.4 15.5H89.5c1.5-5 1.9-10.3 1.4-15.5-1.5-15.4-11-28.5-24.9-34.6-1.9-.8-3.8-1.5-5.8-2" fill="white"/>
-      <circle cx="44" cy="56" r="6" fill="white"/>
-      <circle cx="68" cy="56" r="6" fill="white"/>
-    </svg>
-  </div>
+  <img src={phantomLogo} alt="Phantom" className="w-7 h-7 rounded-lg" />
 );
 
 const KeplrIcon = () => (
