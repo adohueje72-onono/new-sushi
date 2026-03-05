@@ -33,8 +33,8 @@ const TokenIcon = ({ symbol, size = 28 }: TokenIconProps) => {
         <img
           src={imageToken.src}
           alt={imageToken.alt}
-          className="object-contain"
-          style={{ width: size * 0.7, height: size * 0.7 }}
+          className={imageToken.bg ? "object-contain" : "object-cover w-full h-full"}
+          style={imageToken.bg ? { width: size * 0.7, height: size * 0.7 } : undefined}
         />
       </div>
     );
