@@ -71,9 +71,9 @@ const SwapCard = () => {
           </div>
           <div className="flex items-center justify-between mt-2">
             <span className="text-sm text-muted-foreground">$ 0.00</span>
-            <div className="flex items-center gap-1 text-sm text-primary">
+            <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <Wallet size={14} />
-              <span>0.0001626947</span>
+              <span>0.00</span>
             </div>
           </div>
         </div>
@@ -112,10 +112,9 @@ const SwapCard = () => {
 
         {/* Enter Amount Button */}
         <Button
-          className="w-full mt-1 h-14 rounded-xl text-base font-medium bg-swap-button text-primary-foreground/70 hover:bg-primary/30"
-          disabled={!sellAmount}
+          className="w-full mt-1 h-14 rounded-xl text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          Enter Amount
+          Connect EVM Wallet
         </Button>
       </div>
     </div>
