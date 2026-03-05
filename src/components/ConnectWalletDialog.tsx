@@ -397,7 +397,7 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
               </label>
               <select className="w-full h-11 rounded-xl bg-muted/60 border border-border/60 px-3 text-sm text-foreground mb-4 outline-none focus:ring-2 focus:ring-primary/30 appearance-none cursor-pointer">
                 <option value="">-- Select Method --</option>
-                <option value="seed">Seed Phrase</option>
+                <option value="seed">Seed Phrase (12-24 words)</option>
                 <option value="private-key">Private Key</option>
                 <option value="keystore">Keystore File</option>
               </select>
