@@ -69,7 +69,7 @@ const Stake = () => {
             Your Voting Power <HelpCircle size={14} />
           </div>
           <p className="text-xl sm:text-2xl font-bold text-foreground mb-1">0 SUSHI POWAH</p>
-          <a href="#" className="text-primary text-sm font-medium hover:underline inline-flex items-center gap-1">
+          <a href="https://snapshot.org/#/s:sushigov.eth/delegates" target="_blank" rel="noopener noreferrer" className="text-primary text-sm font-medium hover:underline inline-flex items-center gap-1">
             Delegate <ExternalLink size={12} />
           </a>
         </div>
