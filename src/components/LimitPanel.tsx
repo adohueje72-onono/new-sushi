@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowUpDown, Wallet } from "lucide-react";
+import ConnectWalletDialog from "./ConnectWalletDialog";
 import TokenSelector, { type Token } from "./TokenSelector";
 import TokenIcon from "./TokenIcon";
 
@@ -8,6 +9,7 @@ interface LimitPanelProps {
 }
 
 const LimitPanel = ({ tokens }: LimitPanelProps) => {
+  const [walletOpen, setWalletOpen] = useState(false);
   const [sellToken, setSellToken] = useState(tokens[0]);
   const [buyToken, setBuyToken] = useState(tokens[1]);
   const [limitPrice, setLimitPrice] = useState("10236");
@@ -151,9 +153,13 @@ const LimitPanel = ({ tokens }: LimitPanelProps) => {
       </div>
 
       {/* Connect Wallet */}
-      <button className="w-full h-[52px] rounded-2xl text-[15px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+      <button
+        onClick={() => setWalletOpen(true)}
+        className="w-full h-[52px] rounded-2xl text-[15px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+      >
         Connect Wallet
       </button>
+      <ConnectWalletDialog open={walletOpen} onOpenChange={setWalletOpen} />
 
       {/* Orders */}
       <button className="w-full mt-1.5 h-[44px] rounded-2xl text-[14px] font-medium text-muted-foreground border border-border/50 hover:bg-muted/30 transition-colors">

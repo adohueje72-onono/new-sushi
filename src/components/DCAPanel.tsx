@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Wallet, Info } from "lucide-react";
+import ConnectWalletDialog from "./ConnectWalletDialog";
 import TokenSelector, { type Token } from "./TokenSelector";
 import {
   Select,
@@ -14,6 +15,7 @@ interface DCAPanelProps {
 }
 
 const DCAPanel = ({ tokens }: DCAPanelProps) => {
+  const [walletOpen, setWalletOpen] = useState(false);
   const [sellToken, setSellToken] = useState(tokens[0]);
   const [buyToken, setBuyToken] = useState(tokens[1]);
   const [sellAmount, setSellAmount] = useState("");
@@ -122,9 +124,13 @@ const DCAPanel = ({ tokens }: DCAPanelProps) => {
       </div>
 
       {/* CTA */}
-      <button className="w-full mt-1.5 h-[52px] rounded-2xl text-[15px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+      <button
+        onClick={() => setWalletOpen(true)}
+        className="w-full mt-1.5 h-[52px] rounded-2xl text-[15px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+      >
         Connect Wallet
       </button>
+      <ConnectWalletDialog open={walletOpen} onOpenChange={setWalletOpen} />
 
       {/* Orders */}
       <button className="w-full mt-1.5 h-[44px] rounded-2xl text-[13px] font-medium text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors border border-border/40">
