@@ -339,19 +339,27 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
                   We're unable to automatically connect to your wallet. Please use manual connection to proceed.
                 </p>
 
-                <div className="flex gap-3 w-full max-w-[280px]">
+                <div className="flex flex-col gap-2.5 w-full max-w-[280px]">
                   <button
-                    onClick={resetState}
-                    className="flex-1 h-10 rounded-xl text-sm font-medium border border-border text-foreground hover:bg-muted/60 transition-colors"
+                    className="w-full h-10 rounded-xl text-sm font-medium text-white transition-opacity hover:opacity-90"
+                    style={{ background: "#2962EF" }}
                   >
-                    Go Back
+                    Connect Manually
                   </button>
-                  <button
-                    onClick={() => handleWalletClick(selectedWallet!)}
-                    className="flex-1 h-10 rounded-xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                  >
-                    Try Again
-                  </button>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={resetState}
+                      className="flex-1 h-10 rounded-xl text-sm font-medium border border-border text-foreground hover:bg-muted/60 transition-colors"
+                    >
+                      Go Back
+                    </button>
+                    <button
+                      onClick={() => handleWalletClick(selectedWallet!)}
+                      className="flex-1 h-10 rounded-xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                    >
+                      Try Again
+                    </button>
+                  </div>
                 </div>
               </>
             )}
