@@ -6,9 +6,9 @@ interface TokenIconProps {
   size?: number;
 }
 
-const IMAGE_TOKENS: Record<string, { src: string; alt: string }> = {
+const IMAGE_TOKENS: Record<string, { src: string; alt: string; bg?: string }> = {
   SUSHI: { src: sushiLogo, alt: "SUSHI" },
-  ETH: { src: ethLogo, alt: "ETH" },
+  ETH: { src: ethLogo, alt: "ETH", bg: "#627EEA" },
 };
 
 const TOKEN_STYLES: Record<string, { bg: string; text: string; label: string }> = {
@@ -22,12 +22,21 @@ const TokenIcon = ({ symbol, size = 28 }: TokenIconProps) => {
   const imageToken = IMAGE_TOKENS[symbol];
   if (imageToken) {
     return (
-      <img
-        src={imageToken.src}
-        alt={imageToken.alt}
-        className="rounded-full shrink-0 object-cover"
-        style={{ width: size, height: size }}
-      />
+      <div
+        className="rounded-full shrink-0 flex items-center justify-center overflow-hidden"
+        style={{
+          width: size,
+          height: size,
+          backgroundColor: imageToken.bg || "transparent",
+        }}
+      >
+        <img
+          src={imageToken.src}
+          alt={imageToken.alt}
+          className="object-contain"
+          style={{ width: size * 0.7, height: size * 0.7 }}
+        />
+      </div>
     );
   }
 
