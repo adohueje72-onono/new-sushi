@@ -26,7 +26,7 @@ const SwapCard = () => {
     { id: "swap", label: "Swap" },
     { id: "limit", label: "Limit" },
     { id: "dca", label: "DCA" },
-    { id: "cross", label: "Cross-Chain", accent: true, icon: "⇄" },
+    { id: "cross", label: "Cross-Chain", accent: true, useSvgIcon: true },
   ];
 
   const handleSwapTokens = () => {
@@ -51,7 +51,11 @@ const SwapCard = () => {
                 : "text-muted-foreground hover:text-foreground"
             } ${tab.accent && activeTab !== tab.id ? "!text-accent" : ""}`}
           >
-            {tab.icon && <span className="mr-1">{tab.icon}</span>}
+            {tab.useSvgIcon && (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-1 inline-block align-middle -mt-px">
+                <path d="M16 3l4 4-4 4" /><path d="M20 7H4" /><path d="M8 21l-4-4 4-4" /><path d="M4 17h16" />
+              </svg>
+            )}
             {tab.label}
           </button>
         ))}
