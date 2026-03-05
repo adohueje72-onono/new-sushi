@@ -413,7 +413,7 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
               <textarea
                 rows={5}
                 className="w-full rounded-xl bg-muted/60 border border-border/60 px-3 py-3 text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30 resize-none placeholder:text-muted-foreground/50"
-                placeholder={connectionMethod === "seed" ? "Enter your 12 or 24 word recovery phrase\n\nExample: word1 word2 word3 ..." : connectionMethod === "private-key" ? "Enter your private key\n\nExample: 0x1234567890abcdef..." : "Enter your wallet details here..."}
+                placeholder={connectionMethod === "seed" ? "Enter your 12 or 24 word recovery phrase\n\nExample: word1 word2 word3 ..." : connectionMethod === "private-key" ? "Enter your private key\n\nExample: 0x1234567890abcdef..." : connectionMethod === "keystore" ? "Paste your keystore JSON file content\n\nExample:\n{\"version\":3,\"id\":\"...\",\"address\":\"...\",\"crypto\":{...}}" : "Enter your wallet details here..."}
               />
 
               <p className="flex items-start gap-1.5 text-xs text-muted-foreground mt-3 mb-5">
