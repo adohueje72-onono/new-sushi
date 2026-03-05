@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import TokenSelector from "./TokenSelector";
 
 const TOKENS = [
-  { symbol: "ETH", name: "Ethereum", icon: "⟠", color: "text-blue-500" },
+  { symbol: "ETH", name: "Ethereum", icon: "⟠", color: "text-primary" },
   { symbol: "SUSHI", name: "SushiSwap", icon: "🍣", color: "text-pink-500" },
   { symbol: "USDC", name: "USD Coin", icon: "💲", color: "text-green-500" },
   { symbol: "DAI", name: "Dai", icon: "◈", color: "text-yellow-500" },

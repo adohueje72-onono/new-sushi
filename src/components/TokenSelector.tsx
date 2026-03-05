@@ -24,7 +24,7 @@ const TokenSelector = ({ token, onSelect, tokens }: TokenSelectorProps) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="flex items-center gap-2 bg-card hover:bg-secondary rounded-full py-1.5 px-3 border border-border transition-colors shrink-0">
-          <span className="text-lg">{token.icon}</span>
+          <span className={`text-lg ${token.color}`}>{token.icon}</span>
           <span className="font-semibold text-foreground">{token.symbol}</span>
           <ChevronDown size={16} className="text-muted-foreground" />
         </button>
@@ -36,7 +36,7 @@ const TokenSelector = ({ token, onSelect, tokens }: TokenSelectorProps) => {
             onClick={() => onSelect(t)}
             className="flex items-center gap-2 cursor-pointer"
           >
-            <span className="text-lg">{t.icon}</span>
+            <span className={`text-lg ${t.color}`}>{t.icon}</span>
             <div>
               <div className="font-medium text-foreground">{t.symbol}</div>
               <div className="text-xs text-muted-foreground">{t.name}</div>
