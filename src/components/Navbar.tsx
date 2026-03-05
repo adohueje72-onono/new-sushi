@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import TokenIcon from "./TokenIcon";
+import sushiLogo from "@/assets/sushi-logo.png";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -19,7 +20,7 @@ const Navbar = () => {
         {/* Logo + Nav */}
         <div className="flex items-center gap-7">
           <div className="flex items-center gap-2 cursor-pointer group">
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-pink-400 to-orange-400 flex items-center justify-center text-xs">🍣</div>
+            <img src={sushiLogo} alt="Sushi" className="w-7 h-7 rounded-full object-cover" />
             <span className="text-lg font-bold text-foreground tracking-tight">Sushi</span>
             <ChevronDown size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />
           </div>
