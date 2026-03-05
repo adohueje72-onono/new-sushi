@@ -50,10 +50,12 @@ const SwapCard = () => {
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`px-3.5 py-2 rounded-xl text-[13px] font-semibold transition-all whitespace-nowrap ${
-              activeTab === tab.id
-                ? "bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            } ${tab.accent && activeTab !== tab.id ? "bg-gradient-to-r from-[hsl(214,80%,55%)] via-[hsl(270,60%,60%)] to-[hsl(320,70%,60%)] bg-clip-text text-transparent" : ""}`}
+              tab.accent
+                ? `bg-gradient-to-r from-[hsl(214,80%,55%)] via-[hsl(270,60%,60%)] to-[hsl(320,70%,60%)] bg-clip-text text-transparent ${activeTab === tab.id ? "shadow-[0_1px_3px_rgba(0,0,0,0.06)]" : ""}`
+                : activeTab === tab.id
+                  ? "bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+            }`}
           >
             {tab.useSvgIcon && (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-1 inline-block align-middle -mt-px">
