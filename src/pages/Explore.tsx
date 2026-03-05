@@ -56,7 +56,7 @@ const Explore = () => {
             <div className="flex items-start justify-between mb-1">
               <div>
                 <p className="text-[13px] text-muted-foreground">Ethereum TVL</p>
-                <p className="text-3xl font-bold text-foreground tracking-tight">$55.86m</p>
+                <p className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">$55.86m</p>
                 <p className="text-[12px] text-muted-foreground mt-0.5">04 Mar 2026<br />01:00 AM</p>
               </div>
               <div className="flex flex-col items-end gap-0.5 text-[12px]">
@@ -65,7 +65,7 @@ const Explore = () => {
                 <span className="flex items-center gap-1.5"><span>blade</span><span className="w-2.5 h-2.5 rounded-full bg-pink-500 inline-block" /></span>
               </div>
             </div>
-            <div className="h-[280px] w-full">
+            <div className="h-[220px] sm:h-[280px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={tvlData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                   <defs>
@@ -94,7 +94,7 @@ const Explore = () => {
             <div className="flex items-start justify-between mb-1">
               <div>
                 <p className="text-[13px] text-muted-foreground">Ethereum Volume</p>
-                <p className="text-3xl font-bold text-foreground tracking-tight">$111.42m</p>
+                <p className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">$111.42m</p>
                 <p className="text-[12px] text-muted-foreground mt-0.5">Past month</p>
               </div>
               <div className="flex flex-col items-end gap-0.5 text-[12px]">
@@ -103,7 +103,7 @@ const Explore = () => {
                 <span className="flex items-center gap-1.5"><span>blade</span><span className="w-2.5 h-2.5 rounded-full bg-pink-500 inline-block" /></span>
               </div>
             </div>
-            <div className="h-[280px] w-full">
+            <div className="h-[220px] sm:h-[280px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={volumeData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                   <XAxis dataKey="date" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} interval={6} />
@@ -119,7 +119,7 @@ const Explore = () => {
         </div>
 
         {/* Tabs */}
-        <div className="flex items-center gap-1 mb-4">
+        <div className="flex items-center gap-1 mb-4 overflow-x-auto">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -137,7 +137,7 @@ const Explore = () => {
 
         {/* Search + Filters */}
         <div className="flex items-center gap-2 mb-4 flex-wrap">
-          <div className="relative w-full max-w-[280px]">
+          <div className="relative w-full sm:max-w-[280px]">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
@@ -166,18 +166,18 @@ const Explore = () => {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border/30 text-muted-foreground text-[12px]">
-                  <th className="text-left font-medium px-5 py-3">Pool</th>
-                  <th className="text-left font-medium px-3 py-3">Version</th>
-                  <th className="text-right font-medium px-3 py-3">TVL</th>
-                  <th className="text-right font-medium px-3 py-3">APR</th>
-                  <th className="text-right font-medium px-3 py-3">Volume (24h)</th>
-                  <th className="text-right font-medium px-5 py-3">Fees (24h)</th>
+                  <th className="text-left font-medium px-5 py-3 whitespace-nowrap">Pool</th>
+                  <th className="text-left font-medium px-3 py-3 whitespace-nowrap">Version</th>
+                  <th className="text-right font-medium px-3 py-3 whitespace-nowrap">TVL</th>
+                  <th className="text-right font-medium px-3 py-3 whitespace-nowrap">APR</th>
+                  <th className="text-right font-medium px-3 py-3 whitespace-nowrap">Volume (24h)</th>
+                  <th className="text-right font-medium px-5 py-3 whitespace-nowrap">Fees (24h)</th>
                 </tr>
               </thead>
               <tbody>
                 {poolsData.map((pool, i) => (
                   <tr key={i} className="border-b border-border/20 hover:bg-muted/30 transition-colors cursor-pointer">
-                    <td className="px-5 py-3.5 font-medium text-foreground flex items-center gap-2">
+                    <td className="px-5 py-3.5 font-medium text-foreground whitespace-nowrap flex items-center gap-2">
                       {pool.pair}
                       {pool.isFarm && <span className="text-[10px] bg-primary/10 text-primary rounded px-1.5 py-0.5 font-semibold">🌾 Farm</span>}
                     </td>
