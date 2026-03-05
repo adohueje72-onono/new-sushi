@@ -31,7 +31,7 @@ const Navbar = () => {
 
         <div className="flex items-center gap-2 md:gap-3">
           <button className="hidden sm:flex items-center gap-2 bg-card border border-border rounded-full px-3 md:px-4 py-2 text-sm font-medium text-foreground hover:bg-secondary transition-colors">
-            <span>⟠</span>
+            <span className="text-primary">⟠</span>
             <span className="hidden md:inline">Ethereum</span>
           </button>
           <button className="flex items-center gap-2 bg-card border border-border rounded-full px-3 md:px-4 py-2 text-xs md:text-sm font-medium text-foreground hover:bg-secondary transition-colors">
