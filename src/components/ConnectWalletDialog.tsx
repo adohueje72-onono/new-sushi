@@ -14,6 +14,7 @@ import zerionLogo from "@/assets/zerion-wallet.jpeg";
 import leapLogo from "@/assets/leap-wallet.jpeg";
 import cosmostationLogo from "@/assets/cosmostation-wallet.jpeg";
 import safepalLogo from "@/assets/safepal-wallet.jpeg";
+import coinbaseLogo from "@/assets/coinbase-wallet.jpeg";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
@@ -91,12 +92,7 @@ const WalletConnectIcon = () => (
 );
 
 const CoinbaseIcon = () => (
-  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "#0052FF" }}>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#0052FF"/>
-      <rect x="8" y="8" width="8" height="8" rx="2" fill="white"/>
-    </svg>
-  </div>
+  <img src={coinbaseLogo} alt="Coinbase Wallet" className="w-7 h-7 rounded-lg" />
 );
 
 const SolflareIcon = () => (
