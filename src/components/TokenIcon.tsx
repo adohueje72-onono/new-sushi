@@ -8,6 +8,7 @@ import uniLogo from "@/assets/uni-logo.png";
 import paxgLogo from "@/assets/paxg-logo.png";
 import xautLogo from "@/assets/xaut-logo.png";
 import wethLogo from "@/assets/weth-logo.png";
+import kiteLogo from "@/assets/kite-logo.png";
 
 interface TokenIconProps {
   symbol: string;
@@ -25,6 +26,7 @@ const IMAGE_TOKENS: Record<string, { src: string; alt: string; bg?: string }> = 
   PAXG: { src: paxgLogo, alt: "PAXG" },
   XAUt: { src: xautLogo, alt: "XAUt" },
   WETH: { src: wethLogo, alt: "WETH" },
+  KITE: { src: kiteLogo, alt: "KITE" },
 };
 
 const TOKEN_STYLES: Record<string, { bg: string; text: string; label: string }> = {
