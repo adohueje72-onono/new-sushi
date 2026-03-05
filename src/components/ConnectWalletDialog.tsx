@@ -10,6 +10,7 @@ import { Progress } from "@/components/ui/progress";
 import rabbyLogo from "@/assets/rabby-wallet.jpeg";
 import phantomLogo from "@/assets/phantom-wallet.jpeg";
 import keplrLogo from "@/assets/keplr-wallet.jpeg";
+import zerionLogo from "@/assets/zerion-wallet.jpeg";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
@@ -51,11 +52,7 @@ const KeplrIcon = () => (
 );
 
 const ZerionIcon = () => (
-  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #2962EF, #1A4ADB)" }}>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path d="M3 4h18L9 20H3V4z" fill="white"/>
-    </svg>
-  </div>
+  <img src={zerionLogo} alt="Zerion" className="w-7 h-7 rounded-lg" />
 );
 
 const LeapIcon = () => (
