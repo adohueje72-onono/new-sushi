@@ -5,39 +5,180 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import { Globe, Smartphone } from "lucide-react";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
 interface Wallet {
   name: string;
-  icon: string;
+  icon: React.ReactNode;
   badge?: string;
 }
 
+// -- Wallet Icon Components (inline SVG for pixel-perfect rendering) --
+
+const MetaMaskIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 35 33" fill="none">
+    <path d="M32.96 1L19.57 10.94l2.48-5.88L32.96 1z" fill="#E17726" stroke="#E17726" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M2.66 1l13.27 10.04-2.36-5.98L2.66 1zM28.23 23.53l-3.56 5.44 7.62 2.1 2.19-7.42-6.25-.12zM.88 23.65l2.17 7.42 7.62-2.1-3.56-5.44-6.23.12z" fill="#E27625" stroke="#E27625" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M10.35 14.51l-2.12 3.21 7.56.34-.26-8.13-5.18 4.58zM25.27 14.51l-5.26-4.68-.17 8.23 7.55-.34-2.12-3.21zM10.67 28.97l4.54-2.21-3.92-3.06-.62 5.27zM20.41 26.76l4.54 2.21-.62-5.27-3.92 3.06z" fill="#E27625" stroke="#E27625" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M24.95 28.97l-4.54-2.21.36 2.96-.04 1.25 4.22-1.99zM10.67 28.97l4.22 2 -.04-1.25.36-2.96-4.54 2.21z" fill="#D5BFB2" stroke="#D5BFB2" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M14.98 21.94l-3.78-1.11 2.67-1.22 1.11 2.33zM20.64 21.94l1.11-2.33 2.68 1.22-3.79 1.11z" fill="#233447" stroke="#233447" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M10.67 28.97l.65-5.44-4.21.12 3.56 5.32zM24.3 23.53l.65 5.44 3.56-5.32-4.21-.12zM27.39 17.72l-7.55.34.7 3.88 1.11-2.33 2.68 1.22 3.06-3.11zM11.2 20.83l2.68-1.22 1.11 2.33.7-3.88-7.56-.34 3.07 3.11z" fill="#CC6228" stroke="#CC6228" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M8.13 17.72l3.17 6.17-.11-3.06-3.06-3.11zM24.33 20.83l-.11 3.06 3.17-6.17-3.06 3.11zM15.69 18.06l-.7 3.88.88 4.54.2-5.98-.38-2.44zM19.84 18.06l-.37 2.43.2 5.99.88-4.54-.71-3.88z" fill="#E27525" stroke="#E27525" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M20.55 21.94l-.88 4.54.63.44 3.92-3.06.11-3.06-3.78 1.14zM11.2 20.83l.11 3.06 3.92 3.06.63-.44-.88-4.54-3.78-1.14z" fill="#F5841F" stroke="#F5841F" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M20.59 30.97l.04-1.25-.34-.29h-5.03l-.34.29.04 1.25-4.22-2 1.47 1.21 2.99 2.07h5.11l2.99-2.07 1.47-1.21-4.18 2z" fill="#C0AC9D" stroke="#C0AC9D" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M20.41 26.76l-.63-.44h-3.94l-.63.44-.36 2.96.34-.29h5.03l.34.29-.15-2.96z" fill="#161616" stroke="#161616" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M33.52 11.35l1.14-5.49L32.96 1l-12.55 9.32 4.83 4.09 6.83 1.99 1.51-1.76-.65-.47 1.04-.95-.8-.62 1.04-.79-.69-.52zM.96 5.86l1.14 5.49-.73.54 1.04.79-.8.62 1.04.95-.65.47 1.5 1.76 6.84-1.99 4.83-4.09L2.66 1 .96 5.86z" fill="#763E1A" stroke="#763E1A" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M32.07 16.4l-6.83-1.99 2.12 3.21-3.17 6.17 4.14-.05h6.24l-2.5-7.34zM10.35 14.41l-6.83 1.99-2.28 7.34h6.23l4.14.05-3.17-6.17 1.91-3.21zM19.84 18.06l.44-7.59 1.98-5.36h-8.9l1.98 5.36.44 7.59.17 2.45.01 5.97h3.94l.01-5.97.17-2.45z" fill="#F5841F" stroke="#F5841F" strokeWidth=".25" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const RabbyIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #8697FF, #6B7AFF)" }}>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+    </svg>
+  </div>
+);
+
+const PhantomIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #AB9FF2, #7B61FF)" }}>
+    <svg width="16" height="16" viewBox="0 0 128 128" fill="none">
+      <path d="M108.4 57.1C106.7 39.8 96.3 25.2 80.8 18.5c-3.9-1.7-8-2.9-12.2-3.6C64.4 14 60 14.3 55.8 15.2c-8.5 1.9-16.1 6.4-21.9 12.8C28 34.4 24.3 42.6 23.3 51.3c-1 8.7.5 17.5 4.5 25.2 2 3.9 4.7 7.4 7.8 10.5.8.8 1.9.8 2.7.1.8-.8.8-1.9.1-2.7-2.8-2.8-5.2-6-7-9.5-3.6-7-5-14.8-4-22.7.9-7.8 4.3-15.2 9.6-21 5.2-5.8 12.1-9.9 19.8-11.6 3.8-.8 7.7-1.1 11.5-.3 3.8.5 7.5 1.7 11 3.3 14 6.1 23.4 19.2 24.9 34.6.5 5.2.1 10.5-1.4 15.5H89.5c1.5-5 1.9-10.3 1.4-15.5-1.5-15.4-11-28.5-24.9-34.6-1.9-.8-3.8-1.5-5.8-2" fill="white"/>
+      <circle cx="44" cy="56" r="6" fill="white"/>
+      <circle cx="68" cy="56" r="6" fill="white"/>
+    </svg>
+  </div>
+);
+
+const KeplrIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #3B82F6, #1D4ED8)" }}>
+    <span className="text-white font-bold text-xs">K</span>
+  </div>
+);
+
+const ZerionIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #2962EF, #1A4ADB)" }}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M3 4h18L9 20H3V4z" fill="white"/>
+    </svg>
+  </div>
+);
+
+const LeapIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #32D583, #12B76A)" }}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M13 5l7 7-7 7M4 12h16" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  </div>
+);
+
+const CosmostationIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #9F5AE5, #7B3FE4)" }}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="4" fill="white"/>
+      <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="white" strokeWidth="1.5" fill="none"/>
+    </svg>
+  </div>
+);
+
+const SafePalIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #4B5EFC, #3346E8)" }}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="white"/>
+    </svg>
+  </div>
+);
+
+const PortoIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-foreground/90">
+    <Smartphone size={15} className="text-background" />
+  </div>
+);
+
+const BrowserWalletIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #3B82F6, #2563EB)" }}>
+    <Globe size={15} className="text-white" />
+  </div>
+);
+
+const WalletConnectIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #3B99FC, #2B7CD3)" }}>
+    <svg width="18" height="12" viewBox="0 0 26 16" fill="none">
+      <path d="M5.31 3.16c4.25-4.2 11.13-4.2 15.38 0l.51.51c.21.21.21.56 0 .77l-1.75 1.72c-.11.1-.28.1-.38 0l-.7-.69c-2.97-2.93-7.77-2.93-10.73 0l-.75.74c-.11.1-.28.1-.38 0L4.75 4.49c-.21-.21-.21-.56 0-.77l.56-.56zm19 3.5l1.56 1.53c.21.21.21.56 0 .77l-7.02 6.93c-.22.21-.56.21-.77 0l-4.98-4.92a.14.14 0 00-.19 0l-4.98 4.92c-.22.21-.56.21-.77 0L.14 8.96c-.21-.21-.21-.56 0-.77l1.56-1.53c.22-.21.56-.21.77 0l4.98 4.92a.14.14 0 00.19 0l4.98-4.92c.22-.21.56-.21.77 0l4.98 4.92a.14.14 0 00.19 0l4.98-4.92c.22-.21.56-.21.77 0z" fill="white"/>
+    </svg>
+  </div>
+);
+
+const CoinbaseIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "#0052FF" }}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#0052FF"/>
+      <rect x="8" y="8" width="8" height="8" rx="2" fill="white"/>
+    </svg>
+  </div>
+);
+
+const SolflareIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #FC7227, #E85D0F)" }}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2l3 6h6l-5 4 2 6-6-4-6 4 2-6-5-4h6l3-6z" fill="white"/>
+    </svg>
+  </div>
+);
+
+const BackpackIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #E33E3F, #C62828)" }}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M20 8H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V10a2 2 0 00-2-2z" fill="white"/>
+      <path d="M8 8V6a4 4 0 118 0v2" stroke="white" strokeWidth="2" fill="none"/>
+    </svg>
+  </div>
+);
+
+const FreighterIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #1A1A2E, #16213E)" }}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L2 19h20L12 2z" fill="white"/>
+    </svg>
+  </div>
+);
+
+const LobstrIcon = () => (
+  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #4FC3F7, #0288D1)" }}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2l3 6h6l-5 4 2 6-6-4-6 4 2-6-5-4h6l3-6z" fill="white"/>
+    </svg>
+  </div>
+);
+
+// -- Wallet Data --
+
 const EVM_WALLETS: Wallet[] = [
-  { name: "MetaMask", icon: "🦊", badge: "Recent" },
-  { name: "Rabby Wallet", icon: "🐰", badge: "Installed" },
-  { name: "Phantom", icon: "👻", badge: "Installed" },
-  { name: "Keplr", icon: "🟢", badge: "Installed" },
-  { name: "Zerion", icon: "🔷", badge: "Installed" },
-  { name: "Leap Wallet", icon: "🐸", badge: "Installed" },
-  { name: "Cosmostation Wallet", icon: "🌐", badge: "Installed" },
-  { name: "SafePal", icon: "🟣", badge: "Installed" },
-  { name: "Porto", icon: "📱" },
-  { name: "Browser Wallet", icon: "🔵" },
-  { name: "WalletConnect", icon: "🔗" },
-  { name: "Coinbase Wallet", icon: "🔵" },
+  { name: "MetaMask", icon: <MetaMaskIcon />, badge: "Recent" },
+  { name: "Rabby Wallet", icon: <RabbyIcon />, badge: "Installed" },
+  { name: "Phantom", icon: <PhantomIcon />, badge: "Installed" },
+  { name: "Keplr", icon: <KeplrIcon />, badge: "Installed" },
+  { name: "Zerion", icon: <ZerionIcon />, badge: "Installed" },
+  { name: "Leap Wallet", icon: <LeapIcon />, badge: "Installed" },
+  { name: "Cosmostation Wallet", icon: <CosmostationIcon />, badge: "Installed" },
+  { name: "SafePal", icon: <SafePalIcon />, badge: "Installed" },
+  { name: "Porto", icon: <PortoIcon /> },
+  { name: "Browser Wallet", icon: <BrowserWalletIcon /> },
+  { name: "WalletConnect", icon: <WalletConnectIcon /> },
+  { name: "Coinbase Wallet", icon: <CoinbaseIcon /> },
 ];
 
 const SOLANA_WALLETS: Wallet[] = [
-  { name: "Phantom", icon: "👻", badge: "Installed" },
-  { name: "Solflare", icon: "🔥" },
-  { name: "Backpack", icon: "🎒" },
+  { name: "Phantom", icon: <PhantomIcon />, badge: "Installed" },
+  { name: "Solflare", icon: <SolflareIcon /> },
+  { name: "Backpack", icon: <BackpackIcon /> },
 ];
 
 const STELLAR_WALLETS: Wallet[] = [
-  { name: "Freighter", icon: "🚀" },
-  { name: "Lobstr", icon: "⭐" },
+  { name: "Freighter", icon: <FreighterIcon /> },
+  { name: "Lobstr", icon: <LobstrIcon /> },
 ];
 
 interface ConnectWalletDialogProps {
@@ -94,7 +235,9 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
               className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-muted/60 transition-colors group"
             >
               <div className="flex items-center gap-3">
-                <span className="text-2xl w-8 h-8 flex items-center justify-center">{wallet.icon}</span>
+                <div className="w-8 h-8 flex items-center justify-center shrink-0">
+                  {wallet.icon}
+                </div>
                 <span className="text-sm font-medium text-foreground">{wallet.name}</span>
               </div>
               {wallet.badge && (
