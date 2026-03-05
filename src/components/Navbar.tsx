@@ -35,8 +35,7 @@ const Navbar = () => {
             <span className="hidden md:inline">Ethereum</span>
           </button>
           <button className="flex items-center gap-2 bg-card border border-border rounded-full px-3 md:px-4 py-2 text-xs md:text-sm font-medium text-foreground hover:bg-secondary transition-colors">
-            <span>🟡</span>
-            0xf977...dB08
+            Connect Wallet
           </button>
           <button
             className="md:hidden p-2 text-foreground"
