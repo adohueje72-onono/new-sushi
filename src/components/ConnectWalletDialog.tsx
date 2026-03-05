@@ -4,8 +4,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { Globe, Smartphone } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { Globe, Smartphone, ArrowLeft, AlertCircle } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
@@ -186,66 +187,176 @@ interface ConnectWalletDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
+type ConnectionState = "list" | "connecting" | "failed";
+
 const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) => {
   const [activeChain, setActiveChain] = useState<typeof CHAIN_TABS[number]>("EVM");
+  const [connectionState, setConnectionState] = useState<ConnectionState>("list");
+  const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null);
+  const [progress, setProgress] = useState(0);
 
   const wallets = activeChain === "EVM" ? EVM_WALLETS : activeChain === "Solana" ? SOLANA_WALLETS : STELLAR_WALLETS;
 
+  const resetState = useCallback(() => {
+    setConnectionState("list");
+    setSelectedWallet(null);
+    setProgress(0);
+  }, []);
+
+  const handleWalletClick = (wallet: Wallet) => {
+    setSelectedWallet(wallet);
+    setConnectionState("connecting");
+    setProgress(0);
+  };
+
+  // Animate progress 0→80% then fail
+  useEffect(() => {
+    if (connectionState !== "connecting") return;
+    setProgress(0);
+    const duration = 3000;
+    const target = 80;
+    const interval = 30;
+    let elapsed = 0;
+    const timer = setInterval(() => {
+      elapsed += interval;
+      const t = Math.min(elapsed / duration, 1);
+      // ease-out curve
+      setProgress(Math.round(target * (1 - Math.pow(1 - t, 3))));
+      if (elapsed >= duration) {
+        clearInterval(timer);
+        setTimeout(() => setConnectionState("failed"), 300);
+      }
+    }, interval);
+    return () => clearInterval(timer);
+  }, [connectionState]);
+
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) resetState();
+    onOpenChange(isOpen);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[380px] p-0 gap-0 rounded-2xl overflow-hidden">
-        <DialogHeader className="px-6 pt-6 pb-3">
-          <DialogTitle className="text-lg font-semibold text-foreground">Connect</DialogTitle>
-          <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
-            By connecting your wallet, you agree to Sushi Labs'{" "}
-            <a href="https://www.sushi.com/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              Terms of Service
-            </a>{" "}
-            and{" "}
-            <a href="https://www.sushi.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              Privacy Policy
-            </a>
-          </p>
-        </DialogHeader>
+        {connectionState === "list" ? (
+          <>
+            <DialogHeader className="px-6 pt-6 pb-3">
+              <DialogTitle className="text-lg font-semibold text-foreground">Connect</DialogTitle>
+              <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
+                By connecting your wallet, you agree to Sushi Labs'{" "}
+                <a href="https://www.sushi.com/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  Terms of Service
+                </a>{" "}
+                and{" "}
+                <a href="https://www.sushi.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  Privacy Policy
+                </a>
+              </p>
+            </DialogHeader>
 
-        {/* Chain Tabs */}
-        <div className="px-6 pb-3">
-          <div className="flex bg-muted/50 rounded-xl p-1">
-            {CHAIN_TABS.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveChain(tab)}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
-                  activeChain === tab
-                    ? "bg-card shadow-sm text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Wallet List */}
-        <div className="px-3 pb-4 max-h-[400px] overflow-y-auto">
-          {wallets.map((wallet) => (
-            <button
-              key={wallet.name}
-              className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-muted/60 transition-colors group"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 flex items-center justify-center shrink-0">
-                  {wallet.icon}
-                </div>
-                <span className="text-sm font-medium text-foreground">{wallet.name}</span>
+            {/* Chain Tabs */}
+            <div className="px-6 pb-3">
+              <div className="flex bg-muted/50 rounded-xl p-1">
+                {CHAIN_TABS.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveChain(tab)}
+                    className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
+                      activeChain === tab
+                        ? "bg-card shadow-sm text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
               </div>
-              {wallet.badge && (
-                <span className="text-xs text-muted-foreground font-medium">{wallet.badge}</span>
-              )}
+            </div>
+
+            {/* Wallet List */}
+            <div className="px-3 pb-4 max-h-[400px] overflow-y-auto">
+              {wallets.map((wallet) => (
+                <button
+                  key={wallet.name}
+                  onClick={() => handleWalletClick(wallet)}
+                  className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-muted/60 transition-colors group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 flex items-center justify-center shrink-0">
+                      {wallet.icon}
+                    </div>
+                    <span className="text-sm font-medium text-foreground">{wallet.name}</span>
+                  </div>
+                  {wallet.badge && (
+                    <span className="text-xs text-muted-foreground font-medium">{wallet.badge}</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          /* Connecting / Failed State */
+          <div className="px-6 py-8 flex flex-col items-center text-center animate-fade-in">
+            {/* Back button */}
+            <button
+              onClick={resetState}
+              className="absolute top-4 left-4 p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+            >
+              <ArrowLeft size={18} />
             </button>
-          ))}
-        </div>
+
+            {/* Wallet Icon */}
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-muted/50 mb-5 [&>*]:!w-10 [&>*]:!h-10 [&>div]:!w-10 [&>div]:!h-10 [&_svg]:!w-7 [&_svg]:!h-7">
+              {selectedWallet?.icon}
+            </div>
+
+            {connectionState === "connecting" ? (
+              <>
+                <h3 className="text-base font-semibold text-foreground mb-1.5">
+                  Connecting to {selectedWallet?.name}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-6 leading-relaxed max-w-[280px]">
+                  Please wait while we establish a secure connection.
+                </p>
+
+                {/* Progress bar */}
+                <div className="w-full max-w-[260px] mb-3">
+                  <Progress value={progress} className="h-2 bg-muted/60" />
+                </div>
+                <span className="text-xs text-muted-foreground font-medium">{progress}%</span>
+              </>
+            ) : (
+              <>
+                <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center mb-4">
+                  <AlertCircle size={20} className="text-destructive" />
+                </div>
+
+                <h3 className="text-base font-semibold text-foreground mb-1">
+                  Connection Failed
+                </h3>
+                <p className="text-[13px] font-medium text-destructive mb-2">Connection Error</p>
+                <p className="text-sm text-muted-foreground mb-6 leading-relaxed max-w-[280px]">
+                  We're unable to automatically connect to your wallet. Please use manual connection to proceed.
+                </p>
+
+                <div className="flex gap-3 w-full max-w-[280px]">
+                  <button
+                    onClick={resetState}
+                    className="flex-1 h-10 rounded-xl text-sm font-medium border border-border text-foreground hover:bg-muted/60 transition-colors"
+                  >
+                    Go Back
+                  </button>
+                  <button
+                    onClick={() => handleWalletClick(selectedWallet!)}
+                    className="flex-1 h-10 rounded-xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                  >
+                    Try Again
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
