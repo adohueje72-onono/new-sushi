@@ -41,8 +41,7 @@ const Navbar = () => {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-44 p-1">
-                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2" onClick={() => navigate("/")}>
-                  <ArrowLeftRight size={15} />
+                <DropdownMenuItem className="flex items-center cursor-pointer rounded-lg px-2.5 py-2" onClick={() => navigate("/")}>
                   <span className="text-sm font-medium">Swap</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
