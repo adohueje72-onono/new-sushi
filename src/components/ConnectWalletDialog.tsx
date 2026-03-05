@@ -7,6 +7,7 @@ import {
 import { useState, useEffect, useCallback } from "react";
 import { Globe, Smartphone, ArrowLeft, AlertCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import rabbyLogo from "@/assets/rabby-wallet.jpeg";
 
 const CHAIN_TABS = ["EVM", "Solana", "Stellar"] as const;
 
@@ -36,11 +37,7 @@ const MetaMaskIcon = () => (
 );
 
 const RabbyIcon = () => (
-  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #8697FF, #6B7AFF)" }}>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-    </svg>
-  </div>
+  <img src={rabbyLogo} alt="Rabby Wallet" className="w-7 h-7 rounded-lg" />
 );
 
 const PhantomIcon = () => (
