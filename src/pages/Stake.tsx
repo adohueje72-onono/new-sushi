@@ -3,6 +3,7 @@ import { ExternalLink, HelpCircle, ArrowDown, Wallet, TrendingUp } from "lucide-
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 import Navbar from "@/components/Navbar";
 import TokenIcon from "@/components/TokenIcon";
+import ConnectWalletDialog from "@/components/ConnectWalletDialog";
 
 // Mock APR chart data
 const aprData = Array.from({ length: 365 }, (_, i) => {
@@ -21,6 +22,7 @@ const Stake = () => {
   const [amount, setAmount] = useState("");
   const [aprTab, setAprTab] = useState("APR");
   const [aprRange, setAprRange] = useState("1Y");
+  const [walletOpen, setWalletOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -174,9 +176,13 @@ const Stake = () => {
                 </div>
               </div>
 
-              <button className="w-full h-12 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+              <button
+                onClick={() => setWalletOpen(true)}
+                className="w-full h-12 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
                 Connect Wallet
               </button>
+              <ConnectWalletDialog open={walletOpen} onOpenChange={setWalletOpen} />
             </div>
           </div>
 

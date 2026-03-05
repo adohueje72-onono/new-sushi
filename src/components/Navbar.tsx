@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown, Menu, X, ArrowLeftRight, CreditCard } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import TokenIcon from "./TokenIcon";
+import ConnectWalletDialog from "./ConnectWalletDialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,13 +13,14 @@ import sushiNavLogo from "@/assets/sushi-token.jpg";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [walletOpen, setWalletOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const simpleNavItems = [
     { label: "Explore", path: "/explore" },
     { label: "Stake", path: "/stake" },
-    { label: "Validate" },
+    { label: "Validate", action: () => setWalletOpen(true) },
   ];
 
   return (
@@ -75,7 +77,7 @@ const Navbar = () => {
             {simpleNavItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => item.path && navigate(item.path)}
+                onClick={() => { if (item.path) navigate(item.path); else if (item.action) item.action(); }}
                 className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all ${
                   item.path && location.pathname === item.path
                     ? "text-foreground bg-muted/60"
@@ -94,9 +96,13 @@ const Navbar = () => {
             <TokenIcon symbol="ETH" size={20} />
             <span className="hidden md:inline">Ethereum</span>
           </button>
-          <button className="flex items-center bg-card border border-border/60 rounded-full px-3.5 py-1.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+          <button
+            onClick={() => setWalletOpen(true)}
+            className="flex items-center bg-card border border-border/60 rounded-full px-3.5 py-1.5 text-[13px] font-medium text-foreground hover:bg-muted/50 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+          >
             Connect Wallet
           </button>
+          <ConnectWalletDialog open={walletOpen} onOpenChange={setWalletOpen} />
           <button
             className="md:hidden p-2 text-foreground rounded-lg hover:bg-muted/60 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -131,7 +137,7 @@ const Navbar = () => {
             <button
               key={item.label}
               className="flex items-center gap-1 w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2.5 px-2 rounded-lg"
-              onClick={() => { item.path && navigate(item.path); setMobileOpen(false); }}
+              onClick={() => { if (item.path) navigate(item.path); else if (item.action) item.action(); setMobileOpen(false); }}
             >
               {item.label}
             </button>
