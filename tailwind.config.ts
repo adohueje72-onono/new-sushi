@@ -57,6 +57,9 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        swap: {
+          button: "hsl(var(--swap-button))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
