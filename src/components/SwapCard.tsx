@@ -6,6 +6,7 @@ import TokenIcon from "./TokenIcon";
 import LimitPanel from "./LimitPanel";
 import DCAPanel from "./DCAPanel";
 import CrossChainPanel from "./CrossChainPanel";
+import ConnectWalletDialog from "./ConnectWalletDialog";
 
 const TOKENS: Token[] = [
   { symbol: "ETH", name: "Ethereum" },
@@ -23,6 +24,7 @@ const SwapCard = () => {
   const [sellAmount, setSellAmount] = useState("");
   const [buyAmount, setBuyAmount] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [walletOpen, setWalletOpen] = useState(false);
 
   const tabs = [
     { id: "swap", label: "Swap" },
@@ -138,9 +140,13 @@ const SwapCard = () => {
           </div>
 
           {/* CTA Button */}
-          <button className="w-full mt-1.5 h-[52px] rounded-2xl text-[15px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+          <button
+            onClick={() => setWalletOpen(true)}
+            className="w-full mt-1.5 h-[52px] rounded-2xl text-[15px] font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
             Connect EVM Wallet
           </button>
+          <ConnectWalletDialog open={walletOpen} onOpenChange={setWalletOpen} />
         </div>
       )}
     </div>
