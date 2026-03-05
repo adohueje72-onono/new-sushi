@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, Menu, X, ArrowLeftRight, CreditCard, Gift } from "lucide-react";
+import { ChevronDown, Menu, X, ArrowLeftRight, CreditCard } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import TokenIcon from "./TokenIcon";
 import {
@@ -65,8 +65,7 @@ const Navbar = () => {
                   <span className="text-sm font-medium">Manage liquidity pool positions</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
-                  <Gift size={15} />
-                  <span className="text-sm font-medium">Claim</span>
+                  <span className="text-sm font-medium">Claim your fees and rewards</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -120,8 +119,8 @@ const Navbar = () => {
           <button className="flex items-center w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
             Manage liquidity pool positions
           </button>
-          <button className="flex items-center gap-2 w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
-            <Gift size={15} /> Claim
+          <button className="flex items-center w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
+            Claim your fees and rewards
           </button>
           <div className="border-t border-border/50 my-1" />
           {simpleNavItems.map((item) => (
