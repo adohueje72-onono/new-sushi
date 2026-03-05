@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, Menu, X, ArrowLeftRight, CreditCard } from "lucide-react";
+import { ChevronDown, Menu, X, ArrowLeftRight, CreditCard, Settings2, Gift } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import TokenIcon from "./TokenIcon";
 import {
@@ -17,7 +17,6 @@ const Navbar = () => {
 
   const simpleNavItems = [
     { label: "Explore", path: "/explore" },
-    { label: "Positions", hasDropdown: true },
     { label: "Stake", path: "/stake" },
     { label: "Validate" },
   ];
@@ -53,6 +52,26 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
+            {/* Positions Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13px] font-medium text-foreground/80 hover:text-foreground hover:bg-muted/60 transition-all">
+                  Positions
+                  <ChevronDown size={13} className="text-muted-foreground" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-44 p-1">
+                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
+                  <Settings2 size={15} />
+                  <span className="text-sm font-medium">Manage</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2.5 cursor-pointer rounded-lg px-2.5 py-2">
+                  <Gift size={15} />
+                  <span className="text-sm font-medium">Claim</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             {simpleNavItems.map((item) => (
               <button
                 key={item.label}
@@ -64,9 +83,6 @@ const Navbar = () => {
                 }`}
               >
                 {item.label}
-                {item.hasDropdown && (
-                  <ChevronDown size={13} className="text-muted-foreground" />
-                )}
               </button>
             ))}
           </div>
@@ -100,17 +116,22 @@ const Navbar = () => {
           <button className="flex items-center gap-2 w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
             <CreditCard size={15} /> Buy Crypto
           </button>
+           <div className="border-t border-border/50 my-1" />
+          <p className="text-[11px] font-medium text-muted-foreground px-2 pt-1 pb-1">Positions</p>
+          <button className="flex items-center gap-2 w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
+            <Settings2 size={15} /> Manage
+          </button>
+          <button className="flex items-center gap-2 w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2 px-2 rounded-lg" onClick={() => setMobileOpen(false)}>
+            <Gift size={15} /> Claim
+          </button>
           <div className="border-t border-border/50 my-1" />
           {simpleNavItems.map((item) => (
             <button
               key={item.label}
               className="flex items-center gap-1 w-full text-left text-sm font-medium text-foreground hover:bg-muted/60 transition-colors py-2.5 px-2 rounded-lg"
-              onClick={() => setMobileOpen(false)}
+              onClick={() => { item.path && navigate(item.path); setMobileOpen(false); }}
             >
               {item.label}
-              {item.hasDropdown && (
-                <ChevronDown size={13} className="text-muted-foreground" />
-              )}
             </button>
           ))}
           <button className="sm:hidden flex items-center gap-2 text-sm font-medium text-foreground py-2.5 px-2 rounded-lg w-full hover:bg-muted/60">
